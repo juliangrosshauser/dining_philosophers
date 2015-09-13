@@ -1,5 +1,5 @@
 use std::thread;
-use std::sync::Mutex;
+use std::sync::{Mutex, Arc};
 
 struct Philosopher {
     name: String,
@@ -30,6 +30,14 @@ struct Table {
 }
 
 fn main() {
+    let table = Arc::new(Table { forks: vec![
+        Mutex::new(()),
+        Mutex::new(()),
+        Mutex::new(()),
+        Mutex::new(()),
+        Mutex::new(()),
+    ]});
+
     let philosophers = vec![
         Philosopher::new("Judith Butler", 0, 1),
         Philosopher::new("Gilles Deleuze", 1, 2),
