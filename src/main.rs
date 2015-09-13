@@ -1,4 +1,5 @@
 use std::thread;
+use std::sync::Mutex;
 
 struct Philosopher {
     name: String
@@ -18,6 +19,10 @@ impl Philosopher {
 
         println!("{} is done eating.", self.name);
     }
+}
+
+struct Table {
+    forks: Vec<Mutex<()>>,
 }
 
 fn main() {
