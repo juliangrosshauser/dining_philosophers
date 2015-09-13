@@ -16,7 +16,9 @@ impl Philosopher {
         }
     }
 
-    fn eat(&self) {
+    fn eat(&self, table: &Table) {
+        let _left = table.forks[self.left].lock().unwrap();
+        let _right = table.forks[self.right].lock().unwrap();
         println!("{} is eating.", self.name);
 
         thread::sleep_ms(1000);
@@ -50,7 +52,7 @@ fn main() {
         let table = table.clone();
 
         thread::spawn(move || {
-            p.eat();
+            p.eat(&table);
         })
     }).collect();
 
